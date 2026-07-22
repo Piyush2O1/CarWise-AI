@@ -9,6 +9,10 @@ dotenv.config();
 // Use only the configured model from the environment.
 // No hardcoded Gemini model names are allowed.
 const configuredModel = process.env.GEMINI_MODEL?.trim();
+const configuredApiKeys = (process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || "")
+  .split(",")
+  .map((key) => key.trim())
+  .filter(Boolean);
 
 if (!configuredModel) {
   const missingModelError = new Error(
@@ -18,9 +22,17 @@ if (!configuredModel) {
   throw missingModelError;
 }
 
+if (configuredApiKeys.length === 0) {
+  const missingApiKeyError = new Error(
+    "GEMINI_API_KEYS is missing. Set one or more comma-separated Gemini API keys in ai-service/.env."
+  );
+  missingApiKeyError.status = 500;
+  throw missingApiKeyError;
+}
+
 console.log(`[Gemini] Selected model: ${configuredModel}`);
 
-const createModel = (modelName) => {
+const createModel = (modelName, apiKey) => {
   if (!modelName) {
     const error = new Error(
       "GEMINI_MODEL is missing. Set GEMINI_MODEL in ai-service/.env to a valid Gemini model name."
@@ -29,7 +41,7 @@ const createModel = (modelName) => {
     throw error;
   }
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(apiKey);
   return genAI.getGenerativeModel({ model: modelName });
 };
 
@@ -121,9 +133,19 @@ ${contractText}
   };
 
   try {
-    // Use only the configured model from the environment.
-    const model = createModel(configuredModel);
-    return await runWithRetries(model);
+    let lastError;
+
+    for (const apiKey of configuredApiKeys) {
+      try {
+        const model = createModel(configuredModel, apiKey);
+        return await runWithRetries(model);
+      } catch (error) {
+        lastError = error;
+        console.warn("Gemini API key failed; trying the next configured key.");
+      }
+    }
+
+    throw lastError;
   } catch (error) {
     const clientError = formatClientError(error);
     const wrappedError = new Error(clientError.message);
