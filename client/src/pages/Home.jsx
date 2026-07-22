@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import AnalysisPreview from "../components/AnalysisPreview";
@@ -55,8 +55,8 @@ function Home() {
       const formData = new FormData();
       formData.append("contract", file);
 
-      const uploadResponse = await axios.post(
-        "http://localhost:5000/api/contracts/upload",
+      const uploadResponse = await api.post(
+        "/contracts/upload",
         formData,
         {
           headers: {
@@ -67,8 +67,8 @@ function Home() {
 
       const contractId = uploadResponse.data.contract._id;
 
-      const analysisResponse = await axios.post(
-        `http://localhost:5000/api/contracts/${contractId}/analyze`,
+      const analysisResponse = await api.post(
+        `/contracts/${contractId}/analyze`,
         {},
         {
           headers: {

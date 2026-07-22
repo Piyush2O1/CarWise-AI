@@ -3,6 +3,8 @@ const extractTextFromPDF = require("../services/pdfService");
 const axios = require("axios");
 const { getRiskLevelFromSafetyScore } = require("../../shared/riskLevel");
 
+const aiServiceUrl = process.env.AI_SERVICE_URL || "http://localhost:6000";
+
 const uploadContract = async (req, res) => {
   try {
     if (!req.file) {
@@ -101,7 +103,7 @@ const analyzeContract = async (req, res) => {
     await contract.save();
 
     // 3. AI service ko extracted text bhejo
-    const aiResponse = await axios.post("http://localhost:6000/api/analyze", {
+    const aiResponse = await axios.post(`${aiServiceUrl}/api/analyze`, {
       contractText: contract.extractedText,
     });
 

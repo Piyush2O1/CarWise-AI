@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 import {
   FileText,
   ArrowLeft,
@@ -26,8 +26,8 @@ function ContractHistory() {
           return;
         }
 
-        const response = await axios.get(
-          "http://localhost:5000/api/contracts",
+        const response = await api.get(
+          "/contracts",
           {
             headers: {
               Authorization: `Bearer ${token}`,

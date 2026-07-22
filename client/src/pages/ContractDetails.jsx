@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "../utils/api";
 import {
   ArrowLeft,
   Car,
@@ -37,8 +37,8 @@ function ContractDetails() {
           return;
         }
 
-        const response = await axios.get(
-          `http://localhost:5000/api/contracts/${id}`,
+        const response = await api.get(
+          `/contracts/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -228,7 +228,7 @@ function ContractDetails() {
     ) === "DETECTED";
     const hasAnnualMaintenance = /annual maintenance|maintenance charge|maintenance charges/.test(text) || hiddenArray.some((h) => /maintenance/.test(normalizeText(h.name)));
     const hasLoanClosure = /loan closure|loan closing/.test(text) || hiddenArray.some((h) => /loan closure/.test(normalizeText(h.name)));
-    const hasCancellationCharges = /cancellation charge|cancellation fee|cancelation charge|cancelation fee/.test(text);
+    const hasCancellationCharges = /cancellation charge|cancellation fee/.test(text);
     const hasEmiIncrease = /emi increase|increase in emi|emi may increase|emi can increase|emi will increase/.test(text);
     const hasTrackingPrivacy = /tracking|gps|location tracking|telematics|privacy policy|data privacy/.test(text);
     const hasProcessingFees = /processing fee|processing charge|processing charges/.test(text) || hiddenArray.some((h) => /processing/.test(normalizeText(h.name)));
