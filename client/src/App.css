@@ -2509,7 +2509,7 @@ input {
   --sky: #38bdf8;
   --indigo: #6366f1;
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   background-color: #030712;
   background-image: linear-gradient(rgba(30, 41, 59, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 41, 59, 0.18) 1px, transparent 1px), radial-gradient(circle at 70% 0%, rgba(56, 189, 248, 0.11), transparent 30rem), radial-gradient(circle at 0% 20%, rgba(99, 102, 241, 0.1), transparent 28rem);
   background-size: 48px 48px, 48px 48px, auto, auto;
