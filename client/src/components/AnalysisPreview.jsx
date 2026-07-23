@@ -2,10 +2,10 @@ function AnalysisPreview({ analysis }) {
   return (
     <section className="hero-visual">
       {analysis ? (
-        <div className="dashboard-card">
+        <div className="dashboard-card live-analysis-card">
 
           <div className="card-header">
-            <span>Contract Analysis</span>
+            <span><span className="window-dot" /> Vehicle Loan.pdf</span>
 
             <span className="status">
               ● Analyzed
@@ -135,19 +135,16 @@ function AnalysisPreview({ analysis }) {
 
           <div className="empty-analysis">
 
-            <div>
-              🔍
+            <div className="preview-score-ring"><strong>84</strong><span>/ 100</span></div>
+            <div className="preview-status">SAFE</div>
+            <h2>AI Safety Score</h2>
+            <p>Analysis ready in seconds. Your report will surface the terms that matter most.</p>
+            <div className="preview-stats">
+              <span><strong>8</strong>Important clauses</span>
+              <span><strong>12</strong>Financial terms</span>
+              <span><strong>2</strong>Hidden risks</span>
             </div>
-
-            <h2>
-              Upload a contract
-            </h2>
-
-            <p>
-              Your vehicle information,
-              financial terms, risks, and
-              recommendations will appear here.
-            </p>
+            <div className="preview-savings"><span>Estimated savings</span><strong>₹25,000</strong></div>
 
           </div>
 

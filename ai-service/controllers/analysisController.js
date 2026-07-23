@@ -49,6 +49,8 @@ const analyzeContract = async (req, res) => {
       message = "The AI model is currently busy. Please try again in a few seconds.";
     } else if (statusCode === 429) {
       message = "API usage limit reached. Please try again later.";
+    } else if (/Gemini API key|GEMINI_API_KEYS|configuration/i.test(message)) {
+      message = "The AI service is not configured correctly. Check GEMINI_API_KEYS in ai-service/.env.";
     } else if (statusCode === 404) {
       message = "The selected AI model is not available.";
     } else if (/network/i.test(message)) {

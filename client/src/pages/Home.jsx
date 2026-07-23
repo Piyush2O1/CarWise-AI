@@ -8,6 +8,10 @@ import Footer from "../components/Footer";
 import HowItWorks from "../components/HowItWorks";
 import Features from "../components/Features";
 import CTA from "../components/CTA";
+import Metrics from "../components/Metrics";
+import ReportPreview from "../components/ReportPreview";
+import Testimonials from "../components/Testimonials";
+import FAQ from "../components/FAQ";
 
 
 function Home() {
@@ -99,34 +103,36 @@ function Home() {
     }
   };
 
+  const focusUpload = () => {
+    document.getElementById("contract-file")?.click();
+  };
+
   return (
     <div className="app">
 
      <Navbar />
 
-     <main>
+      <main>
+        <section className="hero">
+          <HeroSection
+            file={file}
+            handleFileChange={handleFileChange}
+            handleAnalyze={handleAnalyze}
+            loading={loading}
+            error={error}
+            focusUpload={focusUpload}
+          />
+          <AnalysisPreview analysis={analysis} />
+        </section>
 
-  <section className="hero">
-
-    <HeroSection
-      file={file}
-      handleFileChange={handleFileChange}
-      handleAnalyze={handleAnalyze}
-      loading={loading}
-      error={error}
-    />
-
-    <AnalysisPreview
-      analysis={analysis}
-    />
-
-  </section>
-
-  <HowItWorks />
-  <Features />
-  <CTA />
-
-</main>
+        <Metrics />
+        <HowItWorks />
+        <Features />
+        <ReportPreview />
+        <Testimonials />
+        <FAQ />
+        <CTA />
+      </main>
 
       <Footer />
 

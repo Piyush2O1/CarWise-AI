@@ -228,7 +228,11 @@ function AnalyzeContract() {
       } else if (/network/i.test(rawMessage)) {
         setError("Unable to connect to the AI service.");
       } else {
-        setError("Something went wrong while analyzing the contract.");
+        setError(
+          typeof rawMessage === "string" && rawMessage.trim()
+            ? rawMessage
+            : "Something went wrong while analyzing the contract."
+        );
       }
 
     } finally {

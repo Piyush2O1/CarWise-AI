@@ -1,20 +1,36 @@
-function HeroSection({ file, handleFileChange, handleAnalyze, loading, error }) {
+import { ArrowRight, Play, ShieldCheck, Sparkles, Zap } from "lucide-react";
+
+function HeroSection({ file, handleFileChange, handleAnalyze, loading, error, focusUpload }) {
   return (
     <section className="hero-content">
       <div className="badge">
-        🤖 AI-Powered Vehicle Contract Intelligence
+        <Sparkles size={15} /> AI-powered contract intelligence
       </div>
 
       <h1>
-        Understand Your
-        <span> Car Contract </span>
-        Before You Sign
+        Understand every vehicle contract <span>before you sign.</span>
       </h1>
 
       <p>
-        Upload your vehicle contract and let CarWise AI uncover hidden risks,
-        financial terms, and important clauses in seconds.
+        CarWise AI finds hidden risks, financial obligations, and important clauses
+        in seconds, so you can sign with clarity.
       </p>
+
+      <div className="hero-actions">
+        <button className="hero-primary-button" type="button" onClick={focusUpload}>
+          Analyze Contract <ArrowRight size={17} />
+        </button>
+        <a className="hero-secondary-button" href="#report">
+          <Play size={15} fill="currentColor" /> Watch Demo
+        </a>
+      </div>
+
+      <div className="trust-badges" aria-label="CarWise AI benefits">
+        <span><Sparkles size={14} /> AI powered</span>
+        <span><ShieldCheck size={14} /> Secure PDF upload</span>
+        <span><Zap size={14} /> Instant analysis</span>
+        <span>✓ No hidden charges</span>
+      </div>
 
       <div className="upload-card">
         <input
@@ -29,9 +45,7 @@ function HeroSection({ file, handleFileChange, handleAnalyze, loading, error }) 
           htmlFor="contract-file"
           className="upload-area"
         >
-          <div className="upload-icon">
-            📄
-          </div>
+          <div className="upload-icon">↥</div>
 
           {file ? (
             <>

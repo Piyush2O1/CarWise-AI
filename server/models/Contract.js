@@ -39,6 +39,7 @@ const contractSchema = new mongoose.Schema(
         "uploaded",
         "extracted",
         "processing",
+        "analysis_failed",
         "analyzed",
       ],
       default: "uploaded",

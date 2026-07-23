@@ -71,6 +71,10 @@ const getApiErrorMessage = (error) => {
     return "Unable to connect to the AI service.";
   }
 
+  if (/gemini api key|gemini_api_keys|ai service is not configured/i.test(raw)) {
+    return "The AI service is not configured correctly. Check GEMINI_API_KEYS in ai-service/.env.";
+  }
+
   return "Something went wrong while analyzing the contract.";
 };
 

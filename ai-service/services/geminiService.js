@@ -12,25 +12,34 @@ const configuredModel = process.env.GEMINI_MODEL?.trim();
 const configuredApiKeys = (process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || "")
   .split(",")
   .map((key) => key.trim())
-  .filter(Boolean);
-
-if (!configuredModel) {
-  const missingModelError = new Error(
-    "GEMINI_MODEL is missing. Set GEMINI_MODEL in ai-service/.env to a valid Gemini model name."
+  .filter(
+    (key) =>
+      key &&
+      !/^replace_with_key(?:_\d+)?$/i.test(key) &&
+      !/^your[_-].*key$/i.test(key)
   );
-  missingModelError.status = 500;
-  throw missingModelError;
+
+if (configuredModel && configuredApiKeys.length > 0) {
+  console.log(`[Gemini] Selected model: ${configuredModel}`);
 }
 
-if (configuredApiKeys.length === 0) {
-  const missingApiKeyError = new Error(
-    "GEMINI_API_KEYS is missing. Set one or more comma-separated Gemini API keys in ai-service/.env."
-  );
-  missingApiKeyError.status = 500;
-  throw missingApiKeyError;
-}
+const validateConfiguration = () => {
+  if (!configuredModel) {
+    const error = new Error(
+      "GEMINI_MODEL is missing. Set GEMINI_MODEL in ai-service/.env to a valid Gemini model name."
+    );
+    error.status = 500;
+    throw error;
+  }
 
-console.log(`[Gemini] Selected model: ${configuredModel}`);
+  if (configuredApiKeys.length === 0) {
+    const error = new Error(
+      "GEMINI_API_KEYS contains only placeholder values. Set one or more real comma-separated Gemini API keys in ai-service/.env."
+    );
+    error.status = 500;
+    throw error;
+  }
+};
 
 const createModel = (modelName, apiKey) => {
   if (!modelName) {
@@ -86,6 +95,13 @@ const formatClientError = (error) => {
     };
   }
 
+  if (status === 400 && /api key not valid|api_key_invalid|invalid api key/i.test(normalizedMessage)) {
+    return {
+      status: 500,
+      message: "The Gemini API key is invalid. Update GEMINI_API_KEYS in ai-service/.env.",
+    };
+  }
+
   // Handle invalid or unavailable model responses.
   if (
     status === 404 ||
@@ -112,6 +128,8 @@ const formatClientError = (error) => {
 };
 
 const generateContractAnalysis = async (contractText) => {
+  validateConfiguration();
+
   const prompt = `
 ${require("../prompts/contractAnalysisPrompt")}
 
