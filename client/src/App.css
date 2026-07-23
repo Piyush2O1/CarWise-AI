@@ -2520,11 +2520,14 @@ input {
   position: sticky;
   top: 0;
   z-index: 20;
+  width: 100%;
   height: 72px;
   padding: 0 max(24px, 6vw);
   background: rgba(3, 7, 18, 0.72);
   border-bottom: 1px solid rgba(148, 163, 184, 0.13);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-size: 19px; letter-spacing: -0.02em; }
