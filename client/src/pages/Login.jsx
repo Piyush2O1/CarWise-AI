@@ -50,7 +50,7 @@ function Login() {
       <div className="login-card">
 
         <div className="login-logo">
-          🚗 CarWise AI
+          � ContractIQ
         </div>
 
         <h1>Welcome Back</h1>

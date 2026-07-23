@@ -21,7 +21,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="logo">
-        🚗 <span>CarWise AI</span>
+        � <span>ContractIQ</span>
       </div>
 
       <div className="nav-links">

@@ -63,7 +63,7 @@ function Features() {
         </h2>
 
         <p>
-          CarWise AI helps you discover what really matters in your vehicle contract.
+          ContractIQ helps you discover what really matters in your contract.
         </p>
       </div>
 
