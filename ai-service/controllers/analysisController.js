@@ -1,13 +1,50 @@
 const { generateContractAnalysis } = require("../services/geminiService");
+let azureDocumentService;
+
+try {
+  azureDocumentService = require("../services/azureDocumentService");
+} catch (err) {
+  azureDocumentService = null;
+}
 
 const analyzeContract = async (req, res) => {
   try {
-    const { contractText } = req.body;
+    const { contractText, documentUrl, documentBuffer, contentType } = req.body;
 
-    if (!contractText) {
+    if (!contractText && !documentUrl && !documentBuffer) {
       return res.status(400).json({
         success: false,
-        message: "Contract text is required",
+        message: "Contract text or document source is required",
+      });
+    }
+
+    if ((documentUrl || documentBuffer) && !azureDocumentService) {
+      return res.status(500).json({
+        success: false,
+        message:
+          "Azure Document Intelligence is not configured. Ensure AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT and AZURE_DOCUMENT_INTELLIGENCE_KEY are set in ai-service/.env.",
+      });
+    }
+
+    if (documentUrl || documentBuffer) {
+      const azureResult = await azureDocumentService.analyzeDocumentFromUrlOrBuffer(
+        documentUrl || documentBuffer,
+        contentType
+      );
+
+      const analysisResult = {
+        rawText: azureResult.pages
+          .map((page) => page.lines.map((line) => line.content).join("\n"))
+          .join("\n"),
+        tables: azureResult.tables || [],
+        fields: azureResult.documents?.[0]?.fields || {},
+      };
+
+      return res.json({
+        success: true,
+        analysis: analysisResult,
+        score: null,
+        source: "azure_document_intelligence",
       });
     }
 
