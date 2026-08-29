@@ -12,7 +12,7 @@ function HeroSection({ file, handleFileChange, handleAnalyze, loading, error, fo
       </h1>
 
       <p>
-        ContractIQ finds hidden risks, financial obligations, and important clauses
+        CarWise AI finds hidden risks, financial obligations, and important clauses
         in seconds, so you can sign with clarity.
       </p>
 
@@ -25,7 +25,7 @@ function HeroSection({ file, handleFileChange, handleAnalyze, loading, error, fo
         </a>
       </div>
 
-      <div className="trust-badges" aria-label="ContractIQ benefits">
+      <div className="trust-badges" aria-label="CarWise AI benefits">
         <span><Sparkles size={14} /> AI powered</span>
         <span><ShieldCheck size={14} /> Secure PDF upload</span>
         <span><Zap size={14} /> Instant analysis</span>

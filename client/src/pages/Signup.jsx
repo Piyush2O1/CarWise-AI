@@ -56,7 +56,7 @@ function Signup() {
       <div className="login-card">
 
         <div className="login-logo">
-          � ContractIQ
+          � CarWise AI
         </div>
 
         <h1>

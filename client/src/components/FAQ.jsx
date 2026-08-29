@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 const questions = [
   ["How secure are uploaded PDFs?", "Your documents are encrypted in transit and handled only to provide your requested analysis."],
-  ["What contracts are supported?", "ContractIQ supports purchase agreements, loan documents, leases, and related business paperwork."],
+  ["What contracts are supported?", "CarWise AI supports purchase agreements, loan documents, leases, and related business paperwork."],
   ["How accurate is the AI?", "The AI is designed to surface relevant terms and risks clearly. Always use the report as an aid alongside professional advice."],
   ["Is my data stored?", "Your analysis is available in your account history so you can revisit it. You can manage your account data from the dashboard."],
 ];

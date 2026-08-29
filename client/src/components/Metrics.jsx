@@ -6,7 +6,7 @@ const metrics = [
 ];
 
 function Metrics() {
-  return <section className="metrics-section" aria-label="ContractIQ metrics">
+  return <section className="metrics-section" aria-label="CarWise AI metrics">
     {metrics.map(([value, label]) => <div className="metric" key={label}><strong>{value}</strong><span>{label}</span></div>)}
   </section>;
 }

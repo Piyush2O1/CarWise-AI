@@ -6,7 +6,7 @@ function Footer() {
 
         <div className="footer-brand">
           <div className="footer-logo">
-            � ContractIQ
+            � CarWise AI
           </div>
 
           <p>
@@ -52,7 +52,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <p>
-          © 2026 ContractIQ. All rights reserved.
+          © 2026 CarWise AI. All rights reserved.
         </p>
 
         <p>

@@ -18,7 +18,7 @@ const steps = [
     icon: FileSearch,
     title: "AI Reads the Document",
     description:
-      "ContractIQ extracts important information and key clauses from your contract.",
+      "CarWise AI extracts important information and key clauses from your contract.",
   },
   {
     number: "03",
@@ -53,7 +53,7 @@ function HowItWorks() {
         </h2>
 
         <p>
-          ContractIQ makes understanding your contract simple.
+          CarWise AI makes understanding your contract simple.
         </p>
       </div>
 

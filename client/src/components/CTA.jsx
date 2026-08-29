@@ -18,7 +18,7 @@ function CTA() {
         </h2>
 
         <p>
-          Upload your contract and let ContractIQ uncover
+          Upload your contract and let CarWise AI uncover
           important terms, hidden risks, and financial details in seconds.
         </p>
 
